@@ -4,25 +4,32 @@
             <span class="uk-icon" uk-icon="icon: logo-color-dark; ratio: 0.7"></span>
         </p>
 
-        <div class="uk-card uk-card-primary uk-card-body uk-box-shadow-small">
-            <h3 class="uk-card-title">Autentique-se</h3>
-            <div class="uk-margin">
-                <input type="email" placeholder="E-mail" class="uk-input uk-form">
+        <app-loading *ngIf="busy"></app-loading>
+
+        <form [formGroup]="form" *ngIf="!busy">
+            <div class="uk-card uk-card-primary uk-card-body uk-box-shadow-small">
+                <h3 class="uk-card-title">Autentique-se</h3>
+                <div class="uk-margin">
+                    <input type="text" formControlName="username" placeholder="CPF" mask="###.###.###-##"
+                        class="uk-input uk-form"
+                        [ngClass]="{'uk-form-danger': (form.controls['username'].invalid && !form.controls['username'].pristine) }">
+                </div>
+                <div class="uk-margin">
+                    <input type="password" formControlName="password" placeholder="Senha" class="uk-input uk-form">
+                </div>
+                <div class="uk-margin uk-text-right">
+                    <button class="uk-button-default uk-button-small" [disabled]="form.invalid"
+                        (click)="submit()">Entrar</button>
+                </div>
             </div>
-            <div class="uk-margin">
-                <input type="password" placeholder="Senha" class="uk-input uk-form">
-            </div>
-            <div class="uk-margin uk-text-right">
-                <a href="/"><button class="uk-button-default uk-button-small ">Entrar</button></a>
-            </div>
-        </div>
-        <p class="uk-text-center">
+        </form>
+        <p class="uk-text-center" *ngIf="!busy">
             <a [routerLink]="['/signup']"
                 class="uk-button uk-width-1-1 uk-button-large uk-button-primary uk-margin-small-bottom">Quero me
                 Cadastrar
             </a>
             <br>
-            <a href="/reset-password" class="uk-button uk-button-link"> Esqueci minha senha</a>
+            <a [routerLink]="['/reset-password']" class="uk-button uk-button-link"> Esqueci minha senha</a>
         </p>
     </div>
 </div>

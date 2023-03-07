@@ -4,26 +4,36 @@
             <span class="uk-icon" uk-icon="icon: logo-color-dark; ratio: 0.7"></span>
         </p>
 
-        <div class="uk-card uk-card-primary uk-card-body uk-box-shadow-small">
-            <h3 class="uk-card-title">Cadastre-se</h3>
-            <div class="uk-margin">
-                <input type="text" placeholder="Nome" class="uk-input uk-form">
+        <app-loading *ngIf="busy"></app-loading>
+
+        <form [formGroup]="form" *ngIf="!busy">
+            <div class="uk-card uk-card-primary uk-card-body uk-box-shadow-small">
+                <h3 class="uk-card-title">Cadastre-se</h3>
+                <div class="uk-margin">
+                    <input type="text" placeholder="Nome" class="uk-input uk-form" formControlName="name"
+                        [ngClass]="{'uk-form-danger': (!form.controls['name'].valid && !form.controls['name'].pristine)}">
+                </div>
+                <div class="uk-margin">
+                    <input type="email" placeholder="E-mail" class="uk-input uk-form" formControlName="email"
+                        [ngClass]="{'uk-form-danger': (!form.controls['email'].valid && !form.controls['email'].pristine)}">
+                </div>
+                <div class="uk-margin">
+                    <input type="text" placeholder="CPF" mask="###.###.###-##" class="uk-input uk-form"
+                        formControlName="document"
+                        [ngClass]="{'uk-form-danger': (!form.controls['document'].valid && !form.controls['document'].pristine)}">
+                </div>
+                <div class="uk-margin">
+                    <input type="password" placeholder="Senha" class="uk-input uk-form" formControlName="password"
+                        [ngClass]="{'uk-form-danger': (!form.controls['password'].valid && !form.controls['password'].pristine)}">
+                </div>
+                <div class="uk-margin uk-text-right">
+                    <button class="uk-button-default uk-button-small " [disabled]="form.invalid"
+                        (click)="submit()">Cadastrar</button>
+                </div>
             </div>
-            <div class="uk-margin">
-                <input type="text" placeholder="CPF" class="uk-input uk-form">
-            </div>
-            <div class="uk-margin">
-                <input type="email" placeholder="E-mail" class="uk-input uk-form">
-            </div>
-            <div class="uk-margin">
-                <input type="password" placeholder="Senha" class="uk-input uk-form">
-            </div>
-            <div class="uk-margin uk-text-right">
-                <a href="/login"><button class="uk-button-default uk-button-small ">Cadastrar</button></a>
-            </div>
-        </div>
-        <p class="uk-text-center">
-            <a href="/login" class="uk-button uk-button-link"> Voltar</a>
+        </form>
+        <p class="uk-text-center" *ngIf="!busy">
+            <a [routerLink]="['/login']" class="uk-button uk-button-link"> Voltar</a>
         </p>
     </div>
 </div>

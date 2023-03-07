@@ -7,6 +7,7 @@ import { PetsPageComponent } from './pages/account/pets-page/pets-page.component
 import { LoginPageComponent } from './pages/account/login-page/login-page.component';
 import { SignupPageComponent } from './pages/account/signup-page/signup-page.component';
 import { ResetPasswordPageComponent } from './pages/account/reset-password-page/reset-password-page.component';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   {
@@ -14,19 +15,20 @@ const routes: Routes = [
     component: FramePageComponent,
     children: [
       { path: '', component: ProductsPageComponent },
-      { path: 'cart', component: CartPageComponent }
+      { path: 'cart', component: CartPageComponent, canActivate: [AuthService] },
+
     ]
   },
   {
     path: 'account',
     component: FramePageComponent,
     children: [
-      { path: 'pets', component: PetsPageComponent }
+      { path: 'pets', component: PetsPageComponent, canActivate: [AuthService] }
     ]
   },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
-  { path: 'reset-passord', component: ResetPasswordPageComponent }
+  { path: 'reset-password', component: ResetPasswordPageComponent }
 ];
 
 @NgModule({
