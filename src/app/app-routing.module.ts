@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/account/login-page/login-page.compon
 import { SignupPageComponent } from './pages/account/signup-page/signup-page.component';
 import { ResetPasswordPageComponent } from './pages/account/reset-password-page/reset-password-page.component';
 import { AuthService } from './services/auth.service';
+import { ProfilePageComponent } from './pages/account/profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: 'account',
     component: FramePageComponent,
     children: [
+      { path: '', component: ProfilePageComponent, canActivate: [AuthService] },
       { path: 'pets', component: PetsPageComponent, canActivate: [AuthService] }
     ]
   },
